@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useHttp } from "../hooks/http.hook";
-import { HttpMethods } from "../constants";
+import { useHttp } from "../../hooks/http.hook";
+import { HttpMethods } from "../../constants";
 
 interface loginData {
   email: string;
@@ -8,7 +8,7 @@ interface loginData {
 }
 
 const AuthPage: React.FC = () => {
-  const { loading, error, request } = useHttp();
+  const { loading, request } = useHttp();
   const [form, setForm] = useState<loginData>({
     email: "",
     password: ""
@@ -30,8 +30,8 @@ const AuthPage: React.FC = () => {
   return (
     <div className="row">
       <div className="col s6 offset-s3">
-        <h2>Сократитель Ссылок</h2>
-        <div className="card blue darken-1">
+        <h3>Сократитель Ссылок</h3>
+        <div className="card blue-grey lighten-2">
           <div className="card-content white-text">
             <span className="card-title">Авторизация</span>
             <div className="row">
@@ -57,12 +57,17 @@ const AuthPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="card-action">
-            <button className="btn yellow darken-4 mr-10" disabled={loading}>
-              Войти
-            </button>
+          <div className="card-action blue-grey lighten-1">
             <button
-              className="btn grey lighten-1 black-text"
+              className="btn waves-effect waves-light blue lighten-1 mr-10"
+              disabled={loading}
+            >
+             Войти
+
+            </button>
+
+            <button
+              className="btn waves-effect waves-light green lighten-1"
               onClick={registerHandler}
               disabled={loading}
             >
