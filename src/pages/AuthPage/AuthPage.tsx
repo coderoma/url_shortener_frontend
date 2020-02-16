@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useHttp } from "../../hooks/http.hook";
-import { HttpMethods } from "../../constants";
+import React, { useState } from 'react';
+import { useHttp } from '../../hooks/http.hook';
+import { HttpMethods } from '../../constants';
+import { getBaseUrl } from '../../config/baseUrl';
 
 interface loginData {
   email: string;
@@ -10,8 +11,8 @@ interface loginData {
 const AuthPage: React.FC = () => {
   const { loading, request } = useHttp();
   const [form, setForm] = useState<loginData>({
-    email: "",
-    password: ""
+    email: '',
+    password: '',
   });
 
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = event => {
@@ -20,11 +21,17 @@ const AuthPage: React.FC = () => {
 
   const registerHandler = async () => {
     try {
-      const data = await request("/api/auth/register", HttpMethods.POST, {
-        ...form
-      });
-      console.log("data", data);
-    } catch (e) {}
+      const data = await request(
+        `${getBaseUrl()}/api/auth/register`,
+        HttpMethods.POST,
+        {
+          ...form,
+        },
+      );
+      console.log('data', data);
+    } catch (e) {
+      console.log('error', e);
+    }
   };
 
   return (
@@ -62,8 +69,7 @@ const AuthPage: React.FC = () => {
               className="btn waves-effect waves-light blue lighten-1 mr-10"
               disabled={loading}
             >
-             Войти
-
+              Войти
             </button>
 
             <button
