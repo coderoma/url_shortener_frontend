@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHttp } from '../../hooks/http.hook';
 import { HttpMethods } from '../../constants';
 import { getBaseUrl } from '../../config/baseUrl';
+import {useMessage} from "../../hooks/message.hook";
 
 interface loginData {
   email: string;
@@ -9,11 +10,17 @@ interface loginData {
 }
 
 const AuthPage: React.FC = () => {
-  const { loading, request } = useHttp();
+  const message = useMessage()
+  const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState<loginData>({
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    message(error)
+    clearError()
+  }, [error, message, clearError])
 
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = event => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -25,10 +32,9 @@ const AuthPage: React.FC = () => {
         `${getBaseUrl()}/api/auth/register`,
         HttpMethods.POST,
         {
-          ...form,
+          ...form
         },
       );
-      console.log('data', data);
     } catch (e) {
       console.log('error', e);
     }
