@@ -1,5 +1,5 @@
 const API_BASE_URL = {
-  DEV: 'localhost:5000',
+  DEV: 'http://localhost:5000',
   TEST: '',
   PROD: '',
 };
@@ -10,14 +10,17 @@ const FRONT_BASE_URL = {
   PROD: [''],
 };
 
-export const getBaseUrl = () => {
-  const currentServer = Object.entries(FRONT_BASE_URL).find(hostType =>
+
+export const getEnv = () => {
+  return Object.entries(FRONT_BASE_URL).find(hostType =>
     hostType[1].includes(document.location.host),
   )[0];
+}
 
-  if (API_BASE_URL[currentServer]) {
-    return API_BASE_URL[currentServer];
+export const getBaseUrl = () => {
+  if (API_BASE_URL[getEnv()]) {
+    return API_BASE_URL[getEnv()];
   }
 
   throw new Error('Cannot find api base url');
-};
+}
