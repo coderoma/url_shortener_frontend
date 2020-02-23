@@ -4,3 +4,5 @@ export enum HttpMethods {
   DELETE = "DELETE",
   PATCH = "PATCH",
 }
+
+export const USERDATASTORAGE = 'userData';

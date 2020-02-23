@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHttp } from '../../hooks/http.hook';
-import { HttpMethods } from '../../constants';
+import { HttpMethods } from '../../utils/constants';
 import { getBaseUrl } from '../../config/baseUrl';
 import {useMessage} from "../../hooks/message.hook";
+import {AuthContext} from "../../context/AuthContext";
 
 interface loginData {
   email: string;
@@ -10,6 +11,7 @@ interface loginData {
 }
 
 const AuthPage: React.FC = () => {
+  const { login } = useContext(AuthContext);
   const message = useMessage()
   const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState<loginData>({
@@ -35,6 +37,24 @@ const AuthPage: React.FC = () => {
           ...form
         },
       );
+      message(data.message);
+    } catch (e) {
+      console.log('error', e);
+    }
+  };
+
+  const loginHandler = async () => {
+    try {
+      const data = await request(
+        `${getBaseUrl()}/api/auth/login`,
+        HttpMethods.POST,
+        {
+          ...form
+        }
+      );
+
+      login(data.token, data.userId)
+      message(data.message);
     } catch (e) {
       console.log('error', e);
     }
@@ -73,6 +93,7 @@ const AuthPage: React.FC = () => {
           <div className="card-action blue-grey lighten-1">
             <button
               className="btn waves-effect waves-light blue lighten-1 mr-10"
+              onClick={loginHandler}
               disabled={loading}
             >
               Войти

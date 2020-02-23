@@ -1,9 +1,6 @@
 import { useState, useCallback } from "react";
-import { HttpMethods } from "../constants";
-
-interface Request {
-  (url: string, method: HttpMethods, body: any, headers?: any): any;
-}
+import { HttpMethods } from "../utils/constants";
+import { Request } from "../interfaces";
 
 export const useHttp = () => {
   const [loading, setLoading] = useState<boolean>(false);
