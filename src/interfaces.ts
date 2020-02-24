@@ -20,3 +20,12 @@ export interface IAuthContext {
   logout: () => void,
   isAuthenticated: boolean
 }
+
+export interface Link {
+  _id: string;
+  code: string;
+  to: string;
+  from: string;
+  clicks: number;
+  date: Date
+}

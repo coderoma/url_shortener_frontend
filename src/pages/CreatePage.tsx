@@ -26,7 +26,6 @@ const CreatePage = () => {
       <div className="col s8 offset-s2" style={{paddingTop: '2rem'}}>
         <div className="input-field">
           <input
-            placeholder="Вставьте ссылку"
             type="text"
             id="link"
             value={link}

@@ -3,6 +3,7 @@ import { USERDATASTORAGE } from '../utils/constants';
 
 export const useAuth = () => {
   const [token, setToken] = useState<string | null>(null)
+  const [ready, setReady] = useState<boolean | null>(false)
   const [userId, setUserId] = useState<string | null>(null)
 
   const login = useCallback((jwtToken: string, id: string): void => {
@@ -29,7 +30,8 @@ export const useAuth = () => {
     if (data && data.token) {
       login(data.token, data.userId)
     }
+    setReady(true)
   }, [login])
 
-  return { login, logout, token, userId }
+  return { login, logout, token, userId, ready }
 }

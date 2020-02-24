@@ -62,7 +62,7 @@ const AuthPage: React.FC = () => {
 
   return (
     <div className="row">
-      <div className="col s6 offset-s3">
+      <div className="col s7 center offset-s3">
         <h3>Сократитель Ссылок</h3>
         <div className="card blue-grey lighten-2">
           <div className="card-content white-text">
