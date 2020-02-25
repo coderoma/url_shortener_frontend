@@ -9,8 +9,7 @@ const LinkCard: React.FC<LinkCard> = ({link}) => {
   return (
     <>
       {link ? (
-      <div className="col s12 m7">
-        <h2 className="header">Ссылка</h2>
+      <div className="col s8 m7">
         <div className="card horizontal">
           <div className="card-stacked">
             <div className="card-content">
